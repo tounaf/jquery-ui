@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/jquery-ui.css">
+</head>
+<body>
+    
+    <div class="drag">
+        <p>Ceci est un élément valide</p>
+    </div>
+    
+    <div id="not-drag">
+        <p>Ceci n'est pas un élément valide</p>
+    </div>
+    
+    <div id="drop">
+        <p>Déposer ici</p>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto perferendis sed, praesentium saepe cumque illo sequi aliquid eligendi quod ea incidunt ex magnam nisi quis fugit error laborum ipsam quam?</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto perferendis sed, praesentium saepe cumque illo sequi aliquid eligendi quod ea incidunt ex magnam nisi quis fugit error laborum ipsam quam?</div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto perferendis sed, praesentium saepe cumque illo sequi aliquid eligendi quod ea incidunt ex magnam nisi quis fugit error laborum ipsam quam?</div>
+    <div id="drop-other">
+        <p>Déposer ici aussi ici</p>
+    </div>
+
+
+
+
+    <script src="js/jquery.js" ></script>    
+    <!-- <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script> -->
+    <script src="js/draggable.js" ></script>    
+    <!-- <script src="js/droppable.js" ></script>     -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            console.log("Loaded ok");
+            $('.drag').draggable({
+                classes: {
+                    "ui-draggable": "highlight"
+                },
+                // revert: 'valid',
+                appendTo: '#not-drag',
+                helper: "clone",
+                snap: true,
+                snapMode: "outer",
+                snapTolerence: 50
+            });
+            console.log($('.drag').draggable("option","appendTo"));
+            $('#not-drag').draggable({
+                // revert: 'invalid'
+            });
+
+            $('#drop')
+            .droppable({
+                accept : '.drag', // je n'accepte que le bloc ayant "drag" pour id
+                activeClass: "ui-state-highlight",
+                drop : function(event, ui){
+                    var dragged = ui.draggable;
+                    console.log(dragged.attr('id'));
+                    var dropped = $(this);
+                    dragged.clone().appendTo(dropped);
+                    alert('Action terminée !');
+                }
+            });
+
+            $('#drop-other')
+            .droppable({
+                accept : '.drag', // je n'accepte que le bloc ayant "drag" pour id
+                activeClass: "ui-state-highlight",
+                drop : function(event, ui){
+                    var dragged = ui.draggable;
+                    console.log(dragged.attr('id'));
+                    var dropped = $(this);
+                    dragged.clone().appendTo(dropped);
+                    alert('Action terminée !');
+                }
+            });
+
+        })
+    </script>
+</body>
+</html>
