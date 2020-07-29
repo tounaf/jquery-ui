@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/jquery-ui.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
 </head>
 <body>
-    
     <div class="drag">
         <p>Ceci est un élément valide</p>
     </div>
@@ -56,6 +56,9 @@
             .droppable({
                 accept : '.drag', // je n'accepte que le bloc ayant "drag" pour id
                 activeClass: "ui-state-highlight",
+                over: function(event, ui) {
+                    $(this).addClass("bg-success")
+                },
                 drop : function(event, ui){
                     var dragged = ui.draggable;
                     console.log(dragged.attr('id'));
